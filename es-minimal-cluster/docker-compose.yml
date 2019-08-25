@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  master-01:
+    image: elasticsearch:7.3.1
+    environment:
+      - node.name=master-01
+      - cluster.name=minimal-cluster
+      - discovery.seed_hosts=master-01,master-02,master-03
+      - cluster.initial_master_nodes=master-01,master-02,master-03
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - master-01-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  master-02:
+    image: elasticsearch:7.3.1
+    environment:
+      - node.name=master-02
+      - cluster.name=minimal-cluster
+      - discovery.seed_hosts=master-01,master-02,master-03
+      - cluster.initial_master_nodes=master-01,master-02,master-03
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - master-02-data:/usr/share/elasticsearch/data
+
+  master-03:
+    image: elasticsearch:7.3.1
+    environment:
+      - node.name=master-03
+      - cluster.name=minimal-cluster
+      - discovery.seed_hosts=master-01,master-02,master-03
+      - cluster.initial_master_nodes=master-01,master-02,master-03
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - master-03-data:/usr/share/elasticsearch/data
+
+volumes:
+  master-01-data:
+  master-02-data:
+  master-03-data:
