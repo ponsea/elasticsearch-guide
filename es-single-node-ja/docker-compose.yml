@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  elasticsearch:
+    image: ponsea/elasticsearch-with-kuromoji:7.3.1
+    build:
+      context: ./elasticsearch-with-kuromoji
+      args:
+        - ES_IMG_VERSION=7.3.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: "single-node"
+    volumes:
+      - data:/usr/share/elasticsearch/data
+
+volumes:
+  data:
